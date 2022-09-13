@@ -55,17 +55,19 @@ const CoverImgStyle = styled('img')({
 BlogPostCard.propTypes = {
     post: PropTypes.object.isRequired,
     index: PropTypes.number,
+    setting: PropTypes.object.isRequired,
 };
 
-export default function BlogPostCard({post, index}) {
-    const {title, view, comment, share, author, createdAt} = post;
+export default function BlogPostCard({post, index, setting}) {
+    const {title, backGround, CreatedAt, shareNum, watchNum, commentNum} = post;
+    const {authorName, avatar} = setting
     const latestPostLarge = index <= 1;
     const latestPost = index >= 2 && index <= 5;
 
     const POST_INFO = [
-        {number: comment, icon: 'eva:message-circle-fill'},
-        {number: view, icon: 'eva:eye-fill'},
-        {number: share, icon: 'eva:share-fill'},
+        {number: commentNum, icon: 'eva:message-circle-fill'},
+        {number: watchNum, icon: 'eva:eye-fill'},
+        {number: shareNum, icon: 'eva:share-fill'},
     ];
 
 
@@ -107,8 +109,8 @@ export default function BlogPostCard({post, index}) {
                         }}
                     />
                     <AvatarStyle
-                        alt={author.name}
-                        src={author.avatarUrl}
+                        alt={authorName}
+                        src={avatar}
                         sx={{
                             ...((latestPostLarge || latestPost) && {
                                 zIndex: 9,
@@ -120,7 +122,7 @@ export default function BlogPostCard({post, index}) {
                         }}
                     />
 
-                    <CoverImgStyle alt={title} src={`https://api.ixiaowai.cn/api/api.php?random=${Math.random()}`}/>
+                    <CoverImgStyle alt={title} src={backGround}/>
                 </CardMediaStyle>
 
                 <CardContent
@@ -134,7 +136,7 @@ export default function BlogPostCard({post, index}) {
                     }}
                 >
                     <Typography gutterBottom variant="caption" sx={{color: 'text.disabled', display: 'block'}}>
-                        {fDate(createdAt)}
+                        {fDate(CreatedAt)}
                     </Typography>
 
                     <TitleStyle

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {Link as RouterLink, useLocation} from 'react-router-dom';
 // material
 import {styled} from '@mui/material/styles';
@@ -12,7 +12,7 @@ import Scrollbar from '../../components/Scrollbar';
 import NavSection from '../../components/NavSection';
 //
 import navConfig from './NavConfig';
-
+import { getSetting } from "../../api/api";
 // ----------------------------------------------------------------------
 
 const DRAWER_WIDTH = 280;
@@ -44,12 +44,22 @@ export default function DashboardSidebar({isOpenSidebar, onCloseSidebar}) {
 
     const isDesktop = useResponsive('up', 'lg');
 
+    const [setting, SetSetting] = useState({});
     useEffect(() => {
         if (isOpenSidebar) {
             onCloseSidebar();
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pathname]);
+    }, [pathname]);// eslint-disable-line
+
+    useEffect(() => {
+
+        // 获取个人设置
+        getSetting().then(
+            (res) => {
+                SetSetting(res.Data)
+            }
+        )
+    }, []);
 
     const renderContent = (
         <Scrollbar
@@ -65,13 +75,13 @@ export default function DashboardSidebar({isOpenSidebar, onCloseSidebar}) {
             <Box sx={{mb: 5, mx: 2.5}}>
                 <Link underline="none" component={RouterLink} to="/about">
                     <AccountStyle>
-                        <Avatar src={"https://img1.baidu.com/it/u=873106765,2587410047&fm=253&app=138&size=w931&n=0&f=JPEG&fmt=auto?sec=1662656400&t=5cfd0b69720c1147364aa4104b1101e8"} alt="photoURL"/>
+                        <Avatar src={setting.avatar} alt="photoURL"/>
                         <Box sx={{ml: 2}}>
                             <Typography variant="subtitle2" sx={{color: 'text.primary'}}>
-                                Gravity`Blog
+                                {setting.name}
                             </Typography>
                             <Typography variant="body2" sx={{color: 'text.secondary'}}>
-                                yyisbb@outlook.com
+                                {setting.email}
                             </Typography>
                         </Box>
                     </AccountStyle>

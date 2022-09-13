@@ -12,20 +12,19 @@ import {
 } from '@mui/lab';
 
 
+
 // ----------------------------------------------------------------------
 
 ArchivesTimeLine.propTypes = {
-    title: PropTypes.string,
-    subheader: PropTypes.string,
     list: PropTypes.array.isRequired,
 };
 
-export default function ArchivesTimeLine({title, subheader, list, ...other}) {
+export default function ArchivesTimeLine({ list}) {
     return (
         <Timeline>
-            {list.map((item, index) => (
-                <ArchivesItem key={item.id} item={item} isLast={index === list.length - 1}/>
-            ))}
+            {
+                list.map((item, index) => <ArchivesItem key={item.id} item={item} isLast={index === list.length - 1}/>)
+            }
         </Timeline>
     );
 }

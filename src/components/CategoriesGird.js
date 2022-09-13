@@ -4,7 +4,11 @@ import { Grid, Link, Typography} from "@mui/material";
 import * as React from "react";
 import {alpha, styled} from "@mui/material/styles";
 import {Link as RouterLink} from "react-router-dom";
+import PropTypes from "prop-types";
 
+CategoriesGird.propTypes = {
+    tag: PropTypes.string.isRequired,
+};
 
 export default function CategoriesGird({ tag }) {
     return <Grid item xs={12} sm={6} md={3} key={tag}>

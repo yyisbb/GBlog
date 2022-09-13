@@ -20,11 +20,7 @@ export default function Categories() {
                 </Stack>
                 < Grid container spacing={2}>
                     {
-                        tags.map((tag) => {
-                            return (
-                                <CategoriesGird key={tag} tag={tag}/>
-                            )
-                        })
+                        tags.map(tag => (<CategoriesGird key={tag} tag={tag}/>))
                     }
                 </Grid>
             </Container>

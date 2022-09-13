@@ -9,17 +9,16 @@ import { HelmetProvider } from 'react-helmet-async';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import reportWebVitals from './reportWebVitals';
-
 // ----------------------------------------------------------------------
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-  <HelmetProvider>
-    <HashRouter>
-      <App />
-    </HashRouter>
-  </HelmetProvider>
+        <HelmetProvider>
+            <HashRouter>
+                <App />
+            </HashRouter>
+        </HelmetProvider>
 );
 
 // If you want to enable client cache, register instead.
