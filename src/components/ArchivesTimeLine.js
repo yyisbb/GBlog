@@ -1,6 +1,6 @@
 // @mui
 import PropTypes from 'prop-types';
-import { Typography} from '@mui/material';
+import {Typography} from '@mui/material';
 import {
     Timeline,
     TimelineDot,
@@ -10,7 +10,7 @@ import {
     TimelineConnector,
     TimelineOppositeContent
 } from '@mui/lab';
-
+import {fDate} from '../utils/formatTime';
 
 
 // ----------------------------------------------------------------------
@@ -19,11 +19,11 @@ ArchivesTimeLine.propTypes = {
     list: PropTypes.array.isRequired,
 };
 
-export default function ArchivesTimeLine({ list}) {
+export default function ArchivesTimeLine({list}) {
     return (
         <Timeline>
             {
-                list.map((item, index) => <ArchivesItem key={item.id} item={item} isLast={index === list.length - 1}/>)
+                list.map((item, index) => <ArchivesItem key={item.ID} item={item} isLast={index === list.length - 1}/>)
             }
         </Timeline>
     );
@@ -41,20 +41,21 @@ ArchivesItem.propTypes = {
 };
 
 function ArchivesItem({item, isLast}) {
-    const {type, title, time} = item;
+    const { title, CreatedAt} = item;
+    const color = ['primary',
+        'success',
+        'info',
+        'warning',
+        'error',]
     return (
         <TimelineItem>
             <TimelineOppositeContent color="text.secondary">
-                {time}
+                {fDate(CreatedAt)}
             </TimelineOppositeContent>
             <TimelineSeparator>
                 <TimelineDot
                     color={
-                        (type === 'order1' && 'primary') ||
-                        (type === 'order2' && 'success') ||
-                        (type === 'order3' && 'info') ||
-                        (type === 'order4' && 'warning') ||
-                        'error'
+                        color[Math.floor(Math.random()*5)]
                     }
                 />
                 {isLast ? null : <TimelineConnector/>}

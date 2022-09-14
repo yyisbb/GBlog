@@ -12,7 +12,7 @@ import Scrollbar from '../../components/Scrollbar';
 import NavSection from '../../components/NavSection';
 //
 import navConfig from './NavConfig';
-import { getSetting } from "../../api/api";
+import {getSetting} from "../../api/api";
 // ----------------------------------------------------------------------
 
 const DRAWER_WIDTH = 280;
@@ -78,10 +78,10 @@ export default function DashboardSidebar({isOpenSidebar, onCloseSidebar}) {
                         <Avatar src={setting.avatar} alt="photoURL"/>
                         <Box sx={{ml: 2}}>
                             <Typography variant="subtitle2" sx={{color: 'text.primary'}}>
-                                {setting.name}
+                                {setting.name || ''}
                             </Typography>
                             <Typography variant="body2" sx={{color: 'text.secondary'}}>
-                                {setting.email}
+                                {setting.email || ''}
                             </Typography>
                         </Box>
                     </AccountStyle>

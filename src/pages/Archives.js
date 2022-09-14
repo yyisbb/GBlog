@@ -1,3 +1,4 @@
+import {useEffect, useState} from "react";
 // @mui
 // material
 import {Container, Card, Grid, Stack, Box, Typography, CardHeader, CardContent} from '@mui/material';
@@ -8,24 +9,28 @@ import ArchivesProportion from "../components/ArchivesProportion";
 import ArchivesTimeLine from "../components/ArchivesTimeLine";
 import Page from '../components/Page';
 
+import {getArticleList,getArticleTimeProportion} from "../api/api";
+
 // ----------------------------------------------------------------------
 
 export default function Archives() {
+    const [blogs, SetBlogs] = useState([]);
+    const [chartData, SetChartData] = useState([]);
 
-    const list = [
-        {
-            id: '001',
-            title: 'Git学习',
-            type: `order1`,
-            time: '2020-10-9',
-        },
-        {
-            id: '002',
-            title: 'Go-web学习',
-            type: `order2`,
-            time: '2020-10-19',
-        }
-    ]
+    useEffect(() => {
+        // 获取文章列表
+        getArticleList().then(
+            (res) => {
+                SetBlogs(res.Data)
+            }
+        )
+        // 时间占比
+        getArticleTimeProportion().then(
+            (res) => {
+                SetChartData(res.Data)
+            }
+        )
+    }, [])
 
 
     return (
@@ -44,10 +49,10 @@ export default function Archives() {
                                 boxShadow: '0 2px 14px 0 rgb(32 40 45 / 10%)'
                             },
                         }}>
-                            <CardHeader title={"共XXX篇文章"}/>
+                            <CardHeader title={`共${blogs.length}篇文章`}/>
                             <CardContent>
                                 <ArchivesTimeLine
-                                    list={list}
+                                    list={blogs}
                                 />
                             </CardContent>
                             <Box sx={{ px: 2.5, pb: 3}}>
@@ -64,14 +69,7 @@ export default function Archives() {
                                 },
                             }}
                             title="时间占比"
-                            chartData={[
-                                {label: 'America', value: 4344},
-                                {label: 'Asia', value: 5435},
-                                {label: 'Europe', value: 1443},
-                                {label: 'Africa', value: 4443},
-                                {label: 'Africa', value: 4443},
-                                {label: 'Africa', value: 4443},
-                            ]}
+                            chartData={chartData}
                         />
                     </Grid>
 

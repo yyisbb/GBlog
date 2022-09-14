@@ -1,22 +1,25 @@
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import { Grid, Link, Typography} from "@mui/material";
+import {Grid, Link, Typography} from "@mui/material";
 import * as React from "react";
 import {alpha, styled} from "@mui/material/styles";
 import {Link as RouterLink} from "react-router-dom";
 import PropTypes from "prop-types";
 
 CategoriesGird.propTypes = {
-    tag: PropTypes.string.isRequired,
+    category: PropTypes.object.isRequired,
 };
 
-export default function CategoriesGird({ tag }) {
-    return <Grid item xs={12} sm={6} md={3} key={tag}>
-        <Card sx={{maxWidth: 345,':hover': {
-                boxShadow: '0 2px 14px 0 rgb(32 40 45 / 10%)'}}}>
+export default function CategoriesGird({category}) {
+    return <Grid item xs={12} sm={6} md={3} key={category.ID}>
+        <Card sx={{
+            maxWidth: 345, ':hover': {
+                boxShadow: '0 2px 14px 0 rgb(32 40 45 / 10%)'
+            }
+        }}>
             <CardMediaStyle
                 sx={{
-                    ...( {
+                    ...({
                         pt: 'calc(100% * 4 / 3)',
                         '&:after': {
                             top: 0,
@@ -36,12 +39,12 @@ export default function CategoriesGird({ tag }) {
                 }}
             >
 
-                <CoverImgStyle src={`https://api.ixiaowai.cn/api/api.php?random=${Math.random()}`} />
+                <CoverImgStyle src={category.banner || ''}/>
             </CardMediaStyle>
             <CardContent
                 sx={{
                     pt: 4,
-                    ...(  {
+                    ...({
                         bottom: 0,
                         width: '100%',
                         position: 'absolute',
@@ -55,17 +58,17 @@ export default function CategoriesGird({ tag }) {
                     underline="hover"
                     component={RouterLink}
                     sx={{
-                        ...( { typography: 'h5', height: 60 }),
-                        ...( {
+                        ...({typography: 'h5', height: 60}),
+                        ...({
                             color: 'common.white',
                         }),
                     }}
                 >
-                    {tag}
+                    {category.name || ''}
                 </TitleStyle>
 
                 <Typography variant="body2" color='common.white'>
-                    分类说明啦...
+                    {category.description || ''}
                 </Typography>
             </CardContent>
         </Card>

@@ -20,7 +20,7 @@ const Page = forwardRef(
         }, []);
         return <>
             <Helmet>
-                <title>{`${title}| ${setting.name}`}</title>
+                <title>{`${title}| ${setting.name || ''}`}</title>
                 {meta}
             </Helmet>
 

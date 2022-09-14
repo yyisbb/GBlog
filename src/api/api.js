@@ -6,6 +6,12 @@ import {ApiHttp} from '../utils/http';
 function getArticleList() {
     return ApiHttp("get", '/article/getAllArticle');
 }
+/**
+ * 获取文章时间占比
+ */
+function getArticleTimeProportion() {
+    return ApiHttp("get", '/article/getArticleTimeProportion');
+}
 
 /**
  * 根据Name模糊查询
@@ -21,9 +27,20 @@ function getSetting() {
     return ApiHttp("get", '/setting/getSetting');
 }
 
+/**
+ * 获取分类信息列表
+ */
+function getCategoryList() {
+    return ApiHttp("get", '/category/getCategory');
+}
+
+
+
 
 export {
     getArticleList,
     getSetting,
-    getArticleByTitle
+    getArticleByTitle,
+    getArticleTimeProportion,
+    getCategoryList
 }
