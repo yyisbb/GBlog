@@ -3,8 +3,14 @@ import {ApiHttp} from '../utils/http';
 /**
  * 获取首页列表
  */
-function getArticleList() {
-    return ApiHttp("get", '/article/getAllArticle');
+function getArticleList(page) {
+    return ApiHttp("get", '/article/getAllArticle',{page});
+}
+/**
+ * 根据ID获取文章详情
+ */
+function getArticleByID(id) {
+    return ApiHttp("get", '/article/getArticle',{id});
 }
 /**
  * 获取文章时间占比
@@ -42,5 +48,6 @@ export {
     getSetting,
     getArticleByTitle,
     getArticleTimeProportion,
-    getCategoryList
+    getCategoryList,
+    getArticleByID
 }

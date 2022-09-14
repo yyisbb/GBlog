@@ -34,7 +34,7 @@ export default function ArchivesTimeLine({list}) {
 ArchivesItem.propTypes = {
     isLast: PropTypes.bool,
     item: PropTypes.shape({
-        time: PropTypes.string,
+        CreatedAt: PropTypes.string,
         title: PropTypes.string,
         type: PropTypes.string,
     }),

@@ -48,7 +48,7 @@ function post(url, data) {
 export const ApiHttp = (fetch, url, param) => new Promise((resolve, reject) => {
     switch (fetch) {
         case "get":
-            console.log("begin a get request,and url:", url);
+            console.log("begin a get request,and url:", url,param);
             get(url, param)
                 .then(response => resolve(response))
                 .catch(error => {

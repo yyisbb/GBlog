@@ -8,6 +8,7 @@ import Categories from './pages/Categories'
 import Archives from "./pages/Archives";
 import About from "./pages/About";
 import NotFound from './pages/Page404';
+import Post from './pages/Post';
 
 // ----------------------------------------------------------------------
 
@@ -22,6 +23,7 @@ export default function Router() {
                 {path: '/categories', element: <Categories/>},
                 {path: '/archives', element: <Archives/>},
                 {path: '/about', element: <About/>},
+                {path: '/post/:id', element: <Post/>},
             ],
         },
         {

@@ -59,7 +59,7 @@ BlogPostCard.propTypes = {
 };
 
 export default function BlogPostCard({post, index, setting}) {
-    const {title, backGround, CreatedAt, shareNum, watchNum, commentNum} = post;
+    const {ID,title, backGround, CreatedAt, shareNum, watchNum, commentNum} = post;
     const {authorName, avatar} = setting
     const latestPostLarge = index <= 1;
     const latestPost = index >= 2 && index <= 5;
@@ -140,7 +140,7 @@ export default function BlogPostCard({post, index, setting}) {
                     </Typography>
 
                     <TitleStyle
-                        to="#"
+                        to={`/post/${ID}`}
                         color="inherit"
                         variant="subtitle2"
                         underline="hover"

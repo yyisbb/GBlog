@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 // material
-import {Grid, Container, Stack, Typography} from '@mui/material';
-import { getArticleList,getSetting,getArticleByTitle } from "../api/api";
+import {Grid, Container, Stack, Typography, Pagination, Box} from '@mui/material';
+import {getArticleList, getSetting, getArticleByTitle} from "../api/api";
 // components
 import BlogPostsSearch from "../components/BlogPostsSearch";
 import Page from '../components/Page';
@@ -9,15 +9,17 @@ import {BlogPostCard} from '../sections/@dashboard/blog';
 // ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
-
 export default function Blog() {
     const [blogs, SetBlogs] = useState([]);
     const [setting, SetSetting] = useState({});
+    const [page, SetPage] = useState(1);
+    const [count, SetCount] = useState(1);
     useEffect(() => {
         // 获取文章列表
-        getArticleList().then(
+        getArticleList(page).then(
             (res) => {
                 SetBlogs(res.Data)
+                SetCount(res.Count)
             }
         )
 
@@ -28,7 +30,7 @@ export default function Blog() {
             }
         )
 
-    }, [])
+    }, [page])
     const changeHandle = (title) => {
         // 通过Name获取文章
         getArticleByTitle(title).then(
@@ -36,6 +38,9 @@ export default function Blog() {
                 SetBlogs(res.Data)
             }
         )
+    }
+    const handlePage = (e, page) => {
+        SetPage(page)
     }
     return (
         <Page title="Home">
@@ -47,12 +52,19 @@ export default function Blog() {
 
                 </Stack>
                 <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
-                    <BlogPostsSearch  change={changeHandle} />
+                    <BlogPostsSearch change={changeHandle}/>
                 </Stack>
 
                 <Grid container spacing={3}>
-                    {blogs.map((post, index) => <BlogPostCard key={post.ID} post={post} index={index} setting={setting}/>)}
+                    {blogs.map((post, index) => <BlogPostCard key={post.ID} post={post} index={index}
+                                                              setting={setting}/>)}
                 </Grid>
+
+                <Box sx={{textAlign: 'center', mt: 3}}>
+                    <Stack alignItems="center" spacing={3} sx={{position: 'relative'}}>
+                        <Pagination count={count} page={page} onChange={handlePage}/>
+                    </Stack>
+                </Box>
             </Container>
         </Page>
     );

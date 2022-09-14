@@ -16,12 +16,14 @@ import {getArticleList,getArticleTimeProportion} from "../api/api";
 export default function Archives() {
     const [blogs, SetBlogs] = useState([]);
     const [chartData, SetChartData] = useState([]);
-
+    const [page, SetPage] = useState(1);
+    const [count, SetCount] = useState(1);
     useEffect(() => {
         // 获取文章列表
-        getArticleList().then(
+        getArticleList(page).then(
             (res) => {
                 SetBlogs(res.Data)
+                SetCount(res.Count)
             }
         )
         // 时间占比
@@ -30,8 +32,12 @@ export default function Archives() {
                 SetChartData(res.Data)
             }
         )
-    }, [])
+    }, [page])
 
+
+    const handlePage = (e, page) => {
+        SetPage(page)
+    }
 
     return (
         <Page title="Archives">
@@ -57,7 +63,7 @@ export default function Archives() {
                             </CardContent>
                             <Box sx={{ px: 2.5, pb: 3}}>
                                 <Stack alignItems="center" spacing={3} sx={{ pt: 5, borderRadius: 2, position: 'relative' }}>
-                                    <Pagination count={10} defaultPage={1} siblingCount={0} />                                </Stack>
+                                    <Pagination count={count} page={page} onChange={handlePage}  />                                </Stack>
                             </Box>
                         </Card>
                     </Grid>
