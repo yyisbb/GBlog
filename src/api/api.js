@@ -12,6 +12,13 @@ function getArticleList(page) {
 function getArticleByID(id) {
     return ApiHttp("get", '/article/getArticle',{id});
 }
+
+/**
+ * 根据分类ID获取文章列表
+ */
+function getArticleByCategoryID(categoryId) {
+    return ApiHttp("get", '/article/getArticleByCategoryID',{category_id:categoryId});
+}
 /**
  * 获取文章时间占比
  */
@@ -49,5 +56,6 @@ export {
     getArticleByTitle,
     getArticleTimeProportion,
     getCategoryList,
-    getArticleByID
+    getArticleByID,
+    getArticleByCategoryID
 }

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 // @mui
 import { styled } from '@mui/material/styles';
-import { Autocomplete, InputAdornment, Popper, TextField } from '@mui/material';
+import { Autocomplete, Popper, TextField } from '@mui/material';
 import {useEffect, useState} from "react";
 // components
 import {getArticleList} from "../api/api";
@@ -16,11 +16,11 @@ const PopperStyle = styled((props) => <Popper placement="bottom-start" {...props
 // ----------------------------------------------------------------------
 
 BlogPostsSearch.propTypes = {
-  posts: PropTypes.array,
+    change: PropTypes.func,
 };
 
-export default function BlogPostsSearch({posts,change}) {
-  const handleChange = (e,v,r) => {
+export default function BlogPostsSearch({change}) {
+  const handleChange = (e,v) => {
     change(v)
   }
   const [blogs, SetBlogs] = useState([]);

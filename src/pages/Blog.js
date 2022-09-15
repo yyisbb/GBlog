@@ -1,7 +1,8 @@
 import {useEffect, useState} from "react";
+import {useSearchParams} from "react-router-dom";
 // material
 import {Grid, Container, Stack, Typography, Pagination, Box} from '@mui/material';
-import {getArticleList, getSetting, getArticleByTitle} from "../api/api";
+import {getArticleList, getSetting, getArticleByTitle, getArticleByCategoryID} from "../api/api";
 // components
 import BlogPostsSearch from "../components/BlogPostsSearch";
 import Page from '../components/Page';
@@ -14,14 +15,24 @@ export default function Blog() {
     const [setting, SetSetting] = useState({});
     const [page, SetPage] = useState(1);
     const [count, SetCount] = useState(1);
+    const [searchParams] = useSearchParams()
+    const categoriesId = searchParams.get('categoriesId')
     useEffect(() => {
-        // 获取文章列表
-        getArticleList(page).then(
-            (res) => {
+        if (categoriesId !== null) {
+            getArticleByCategoryID(categoriesId).then((res) => {
+                console.log(res.Data)
                 SetBlogs(res.Data)
                 SetCount(res.Count)
-            }
-        )
+            })
+        }else {
+            // 获取文章列表
+            getArticleList(page).then(
+                (res) => {
+                    SetBlogs(res.Data)
+                    SetCount(res.Count)
+                }
+            )
+        }
 
         // 获取个人设置
         getSetting().then(
@@ -30,7 +41,11 @@ export default function Blog() {
             }
         )
 
-    }, [page])
+
+
+    }, [page,categoriesId])
+
+
     const changeHandle = (title) => {
         // 通过Name获取文章
         getArticleByTitle(title).then(

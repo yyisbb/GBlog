@@ -13,7 +13,7 @@ CategoriesGird.propTypes = {
 export default function CategoriesGird({category}) {
     return <Grid item xs={12} sm={6} md={3} key={category.ID}>
         <Card sx={{
-            maxWidth: 345, ':hover': {
+            ':hover': {
                 boxShadow: '0 2px 14px 0 rgb(32 40 45 / 10%)'
             }
         }}>
@@ -52,7 +52,7 @@ export default function CategoriesGird({category}) {
                 }}
             >
                 <TitleStyle
-                    to="/"
+                    to={`/home?categoriesId=${category.ID}`}
                     color="inherit"
                     variant="subtitle2"
                     underline="hover"
