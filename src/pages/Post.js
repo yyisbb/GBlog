@@ -15,7 +15,7 @@ import {
 // components
 import * as React from 'react';
 import Page from '../components/Page';
-import {getArticleByID} from "../api/api";
+import {getArticleByID,addWatchNum} from "../api/api";
 
 // ----------------------------------------------------------------------
 
@@ -27,6 +27,8 @@ export default function Post() {
             console.log(res.Data)
             setPost(res.Data)
         })
+
+        addWatchNum(id).then((res) => {});
     }, [id])
 
 

@@ -43,7 +43,6 @@ export default function DashboardSidebar({isOpenSidebar, onCloseSidebar}) {
     const {pathname} = useLocation();
 
     const isDesktop = useResponsive('up', 'lg');
-
     const [setting, SetSetting] = useState({});
     useEffect(() => {
         if (isOpenSidebar) {
