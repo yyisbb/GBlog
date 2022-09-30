@@ -8,11 +8,12 @@ import { Box } from '@mui/material';
 Logo.propTypes = {
   disabledLink: PropTypes.bool,
   sx: PropTypes.object,
+  logoUrl:PropTypes.string
 };
 
-export default function Logo({ disabledLink = false, sx }) {
+export default function Logo({ logoUrl,disabledLink = false, sx }) {
   // OR
-  const logo = <Box component="img" src="/static/logo.svg" sx={{ width: 40, height: 40, ...sx }} />
+  const logo = <Box component="img" src={logoUrl} sx={{ width: 40, height: 40, ...sx }} />
 
 
 

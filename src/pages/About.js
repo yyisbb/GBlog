@@ -1,4 +1,9 @@
+import {useEffect, useState} from "react";
 // material
+import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
+import remarkGfm from "remark-gfm";
+import remarkToc from "remark-toc";
 import {
     Container,
     Stack,
@@ -10,10 +15,20 @@ import {
 // components
 import * as React from 'react';
 import Page from '../components/Page';
+import {getSetting} from "../api/api";
 
 // ----------------------------------------------------------------------
 
 export default function About() {
+    const [setting, SetSetting] = useState({});
+    useEffect(() => {
+        // 获取个人设置
+        getSetting().then(
+            (res) => {
+                SetSetting(res.Data)
+            }
+        )
+    }, []);
     return (
         <Page title="About">
             <Container>
@@ -21,6 +36,7 @@ export default function About() {
                     <Typography variant="h4" gutterBottom>
                         About
                     </Typography>
+
                 </Stack>
                 <Box sx={{textAlign: 'center'}}>
                     <Card
@@ -32,26 +48,27 @@ export default function About() {
                     >
                         <Stack alignItems="center" spacing={3} sx={{position: 'relative'}}>
                             <Avatar
-                                alt="Remy Sharp"
-                                src="https://zwjimg.oss-cn-beijing.aliyuncs.com/IMG_5103(20210807-235027)-5780abca87c241c2b1487191ab647f00.jpeg"
+                                alt="Avatar"
+                                src={setting.avatar ||''}
                                 sx={{
-                                    width: 100, height: 100, ':hover': {
-                                        boxShadow: '0 2px 14px 0 rgb(32 40 45 / 10%)'
-                                    },
-                                    mt:3,
-                                }}
+                                width: 100, height: 100, ':hover': {
+                                    boxShadow: '0 2px 14px 0 rgb(32 40 45 / 10%)'
+                                },
+                                mt: 3,
+                            }}
                             />
                         </Stack>
                         <CardHeader sx={{textAlign: 'center'}} title={
                             <Typography variant="h2">
-                                Zwj
+                                {setting.authorName || ''}
                             </Typography>
                         }
                         />
                         <CardContent>
-                            感谢关注我的网站，本项目基于Hexo 框架 + Fluid主题 搭建。
-                            <br/>
-                            本网站主要用于记录一些学习Note以及技术分享。
+                            <ReactMarkdown rehypePlugins={[rehypeRaw]}
+                                           remarkPlugins={[remarkGfm, remarkToc]}
+                                           children={setting.aboutContent || ''}
+                            />
                         </CardContent>
                     </Card>
                 </Box>

@@ -24,15 +24,14 @@ export default function Post() {
     const [post, setPost] = useState({});
     useEffect(() => {
         getArticleByID(id).then((res) => {
-            console.log(res.Data)
             setPost(res.Data)
         })
 
-        addWatchNum(id).then((res) => {});
+        addWatchNum(id).then(() => {});
     }, [id])
 
 
-    return <Page>
+    return <Page title={post.title}>
         <Container>
             <Box>
                 <Card

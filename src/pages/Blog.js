@@ -1,12 +1,14 @@
 import {useEffect, useState} from "react";
 import {useSearchParams} from "react-router-dom";
 // material
-import {Grid, Container, Stack, Typography, Pagination, Box} from '@mui/material';
+import {Grid, Container, Stack, Typography, Pagination, Box, IconButton} from '@mui/material';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import {getArticleList, getSetting, getArticleByTitle, getArticleByCategoryID} from "../api/api";
 // components
 import BlogPostsSearch from "../components/BlogPostsSearch";
 import Page from '../components/Page';
 import {BlogPostCard} from '../sections/@dashboard/blog';
+
 // ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
@@ -24,7 +26,7 @@ export default function Blog() {
                 SetBlogs(res.Data)
                 SetCount(res.Count)
             })
-        }else {
+        } else {
             // 获取文章列表
             getArticleList(page).then(
                 (res) => {
@@ -42,8 +44,7 @@ export default function Blog() {
         )
 
 
-
-    }, [page,categoriesId])
+    }, [page, categoriesId])
 
 
     const changeHandle = (title) => {
@@ -68,6 +69,9 @@ export default function Blog() {
                 </Stack>
                 <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
                     <BlogPostsSearch change={changeHandle}/>
+                    <IconButton>
+                        <GitHubIcon onClick={()=>{window.location.href = `${setting.githubUrl}`}}/>
+                    </IconButton>
                 </Stack>
 
                 <Grid container spacing={3}>
